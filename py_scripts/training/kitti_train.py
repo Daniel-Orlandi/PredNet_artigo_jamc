@@ -19,15 +19,15 @@ from prednet import PredNet
 from data_utils import SequenceGenerator
 from kitti_settings import *
 
-resp = raw_input('deseja mudar o nome com que os arquivos serao salvos? (padrao = prednet_kitti_weights-extrapfinetuned_a3_t5)')
+resp = raw_input('deseja mudar o nome com que os arquivos serao salvos? (padrao = prednet_jamc_a3_t1.hdf5): ')
 if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 'y':
     peso_hdf = raw_input('weights_file:') 
     peso_json = raw_input('json weight file:')
     weights_file = os.path.join(DATA_DIR, str(peso_hdf))
     json_file = os.path.join(DATA_DIR,str(peso_json))
 else:
-    weights_file = os.path.join(DATA_DIR, 'prednet_kitti_weights-extrapfinetuned_a3_t5.hdf5')
-    json_file = os.path.join(DATA_DIR, 'prednet_kitti_weights-extrapfinetuned_a3_t5.json')
+    weights_file = os.path.join(DATA_DIR, 'prednet_jamc_a3_t1.hdf5')
+    json_file = os.path.join(DATA_DIR, 'prednet_jamc_a3_t1.json')
     
 print 'nome dos arquivos:'+ weights_file+'\n'+json_file
 save_model = True  # if weights will be saved
@@ -39,7 +39,7 @@ val_file = os.path.join(DATA_DIR, 'X_test.hkl')
 val_sources = os.path.join(DATA_DIR, 'sources_test.hkl')
 
 # Training parameters
-resp = raw_input('Deseja setar os parametros de treinamento? [Y,y,Yes,yes,S,s,Sim,sim]. Ou deseja escolher conf_monografia?')
+resp = raw_input('Deseja setar os parametros de treinamento? [Y,y,Yes,yes,S,s,Sim,sim]. Ou deseja escolher conf_monografia? ')
 if  resp == 'y' or resp == 'sim' or resp == 's' or resp == 'yes' or resp == 'Yes' or resp == 'Sim':
     nb_epoch = raw_input('nb_epoch (padrao = 150): ')
     batch_size = raw_input('batch_size (padrao = 4): ')
@@ -47,8 +47,8 @@ if  resp == 'y' or resp == 'sim' or resp == 's' or resp == 'yes' or resp == 'Yes
     N_seq_val = raw_input('N_seq_val (padrao = 100): ' )
 elif resp == 'conf_monografia':
     nb_epoch = 150
-    batch_size = 3
-    samples_per_epoch = 1755 #Numero de imagens a cada n batch_size (samples_per_epoch/batch_size = iterations)
+    batch_size = 4
+    samples_per_epoch = 1000 #Numero de imagens a cada n batch_size (samples_per_epoch/batch_size = iterations)
     N_seq_val = 1000
     print ('nb_epoch = ' + str(nb_epoch) +';'+' batch_size = ' + str(batch_size)+';'+ ' samples_per_epoch = '+';'+ str(samples_per_epoch)+';'+ ' N_seq_val = ' + str(N_seq_val))
 else:
