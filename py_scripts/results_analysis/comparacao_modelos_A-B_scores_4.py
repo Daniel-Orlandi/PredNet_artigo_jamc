@@ -143,7 +143,8 @@ if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 
             idx_len_11 = name_obs[6:7]
             file_index_obs = int(idx_len_11)
             prev_index_obs = file_index_obs - 1
-
+            
+            
         elif len(name_obs) == 12:
             #Ex: obs_50_1.png
             obs_idx = (name_obs[4:6])
@@ -154,7 +155,8 @@ if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 
                 file_index_obs = idx_len_12_1d
                 prev_index_obs = file_index_obs - 1
                 print ('Ok.')
-
+                
+                
             else:
                 print('Next option.')
                 continue           
@@ -166,7 +168,8 @@ if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 
 
             if obs_idx.isdigit() == True and idx_len_12_2d.isdigit() == True:
                idx_len_12_2d = int(idx_len_12_2d)
-
+               
+                
             else:
                 print('Next option.')
                 continue
@@ -176,12 +179,13 @@ if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 
             obs_idx = name_obs[4:6]
             idx_len_13 = int(name_obs[7:9])
             file_index_obs = idx_len_13
-            prev_index_obs = file_index_obs - 1       
-    
-        name_file =  name_obs[0:3]+ '_' + (obs_idx) + '_' + str(file_index_obs)+ '_' + name_obs[0:3] + '_' + (obs_idx) + '_' + str(prev_index_obs)
+            prev_index_obs = file_index_obs - 1
+            
+            
+        name_file =  name_obs[0:3]+ '_' + str(obs_idx) + '_' + str(file_index_obs)+ '_' + name_obs[0:3] + '_' + str(obs_idx) + '_' + str(prev_index_obs)
         
         #Avoinding incorrect files.
-        if name_file[0:7] == name_obs[0:3] + (obs_idx) + '_' + str(file_index_obs):
+        if name_file[0:7] == name_obs[0:3] + str(obs_idx) + '_' + str(file_index_obs):
             print 'no'
             continue
 
@@ -202,6 +206,14 @@ if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 
             continue
 
         elif '_9_o' in name_file:
+            print 'no'
+            continue
+            
+        elif '_0_' in name_file:
+            print 'no'
+            continue
+            
+        elif '_1_' in name_file:
             print 'no'
             continue
 
