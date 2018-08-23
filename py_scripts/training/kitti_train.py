@@ -58,9 +58,9 @@ else:
     N_seq_val = 100  # number of sequences to use for validation
 #resp 2 = raw_input('Deseja comecar o treinamento com os parametros: '+'nb_epoch = ' + str(nb_epoch) +';'+' batch_size = ' + str(batch_size)+';'+ ' samples_per_epoch = '+';'+ str(samples_per_epoch)+';'+ ' N_seq_val = ' + str(N_seq_val)+'')
 # Model parameters
-n_channels, im_height, im_width = (3, 128, 160)
+n_channels, im_height, im_width = (3, 256, 256)
 input_shape = (n_channels, im_height, im_width) if K.image_data_format() == 'channels_first' else (im_height, im_width, n_channels)
-stack_sizes = (n_channels, 48, 96, 192)
+stack_sizes = (n_channels, 256, 512, 1024)
 R_stack_sizes = stack_sizes
 A_filt_sizes = (3, 3, 3)
 Ahat_filt_sizes = (3, 3, 3, 3)

@@ -1,8 +1,4 @@
-
 # coding: utf-8
-
-# In[9]:
-
 import os
 import numpy as np
 from six.moves import cPickle
@@ -19,18 +15,11 @@ from prednet import PredNet
 from prednet.data_utils import SequenceGenerator
 from prednet.kitti_settings import *
 
-
-# In[10]:
-
 n_plot = 40
 batch_size = 15
 nt = 15
 
-
-
-# In[23]:
-
-resp = raw_input('deseja mudar os nomes dos arquivos a serem carregados? Padrao (prednet_jamc_extrapfinetuned_a3_t5) ')
+resp = raw_input('deseja mudar os nomes dos arquivos a serem carregados? Padrao (prednet_jamc_extrapfinetuned_a3_t5_fm) ')
 if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 'y':
     peso_hdf = raw_input('weights_file:') 
     peso_json = raw_input('json weight file:')
@@ -39,14 +28,13 @@ if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 
     test_file = os.path.join(DATA_DIR, 'X_val.hkl')
     test_sources = os.path.join(DATA_DIR, 'sources_val.hkl')
 else:
-    weights_file = os.path.join(WEIGHTS_DIR, 'prednet_jamc_extrapfinetuned_a3_t5.hdf5')
-    json_file = os.path.join(WEIGHTS_DIR, 'prednet_jamc_extrapfinetuned_a3_t5.json')
+    weights_file = os.path.join(WEIGHTS_DIR, 'prednet_jamc_weights-extrapfinetuned_a3_t5_fm.hdf5')
+    json_file = os.path.join(WEIGHTS_DIR, 'prednet_jamc_model-extrapfinetuned_a3_t5_fm.json')
     test_file = os.path.join(DATA_DIR, 'X_val.hkl')
     test_sources = os.path.join(DATA_DIR, 'sources_val.hkl')
 print 'nome dos arquivos:'+ weights_file+'\n'+json_file
 
 
-# In[4]:
 
 # Load trained model
 f = open(json_file, 'r')
@@ -54,7 +42,6 @@ json_string = f.read()
 f.close()
 train_model = model_from_json(json_string, custom_objects = {'PredNet': PredNet})
 train_model.load_weights(weights_file)
-
 
 
 
@@ -77,39 +64,32 @@ if data_format == 'channels_first':
 
 
 
-
 plot_save_dir = '/home/daniel/PredNet_artigo_jamc/kitti_results/hdf-result'
 import hickle as hkl
 if not os.path.exists(plot_save_dir): os.mkdir(plot_save_dir)
-
-
-
 
 resp = raw_input('deseja mudar os nomes dos arquivos antes de salvar? ')
 if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 'y':
     nome_xhat_saver = raw_input('digite nome X_hat: ')
     x_hat_saver = os.path.join (plot_save_dir,str(nome_xhat_saver))
 else:
-    x_hat_saver = os.path.join (plot_save_dir,'X_hat_jamc_t+5_a3.hkl')
+    x_hat_saver = os.path.join (plot_save_dir,'X_hat_jamc_t+5_a3_2.hkl')
 print 'o arquivo será salvo com o nome:', x_hat_saver
 hkl.dump(X_hat,x_hat_saver)
 print 'Pronto!'
-
-
-
 
 resp = raw_input('deseja mudar os nomes dos arquivos antes de salvar? ')
 if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 'y':
     nome_xtest_saver = raw_input('digite nome X_test: ')
     x_test_saver = os.path.join (plot_save_dir,str(nome_xtest_saver))
 else:
-    x_test_saver = os.path.join (plot_save_dir,'X_hat_jamc_t+5_a3.hkl')
+    x_test_saver = os.path.join (plot_save_dir,'X_test_jamc_t+5_a3_2.hkl')
 print 'o arquivo será salvo com o nome:', x_test_saver
 hkl.dump(X_test,x_test_saver)
 print 'Pronto!'
 
 
-# In[ ]:
+
 
 
 

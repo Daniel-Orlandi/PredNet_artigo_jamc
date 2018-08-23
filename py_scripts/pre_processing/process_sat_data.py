@@ -10,7 +10,6 @@ Created on Wed Oct  4 17:52:06 2017
 Code for downloading and processing KITTI data (Geiger et al. 2013, http://www.cvlibs.net/datasets/kitti/)
 '''
 import time
-import progressbar
 import os
 import requests
 import numpy as np
@@ -21,13 +20,13 @@ from kitti_settings import *
 from glob import glob
 import random
 desired_im_sz = (128, 160)
-categories = ['2011', '2012', '2013']
-DATA_DIR = '/media/daniel/Local-Disk-HDD-500GB/IC/IC_GEPAC/dados/imgs/'
+categories = ['2008', '2009', '2010']
+DATA_DIR = '/media/daniel/Local-Disk-HDD-500GB/IC/IC_GEPAC/dados/dados_prednet_mono/'
 # Recordings used for validation and testing.
 # Were initially chosen randomly such that one of the city recordings was used for validation and one of each category was used for testing.
 test_recordings = []
 val_recordings = []
-Dir = glob('/media/daniel/Local-Disk-HDD-500GB/IC/IC_GEPAC/dados/imgs/raw/201*/*')
+Dir = glob('/media/daniel/Local-Disk-HDD-500GB/IC/IC_GEPAC/dados/dados_prednet_mono/raw/201*/*')
 count = 0
 while count <= 161:
     test_recordings.append(random.choice(Dir))
@@ -74,7 +73,7 @@ def organizing_data():
         if not os.path.exists(c_dir):
             os.mkdir(c_dir)
     # Create image datasets.
-# Processes images and saves them in train, val, test splits.
+# Process images and saves them in train, val, test splits.
 
 
 def process_data():

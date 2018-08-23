@@ -24,23 +24,23 @@ def extrap_loss(y_true, y_hat):
 
 nt = 15
 extrap_start_time = 10  # starting at this time step, the prediction from the previous time step will be treated as the actual input
-orig_weights_file = os.path.join(WEIGHTS_DIR, 'prednet_jamc_a3_t1.hdf5')  # original t+1 weights
-orig_json_file = os.path.join(WEIGHTS_DIR, 'prednet_jamc_a3_t1.json')
+orig_weights_file = os.path.join(WEIGHTS_DIR, 'prednet_kitti_weights-extrapfinetuned_a3_t5.hdf5')  # original t+1 weights
+orig_json_file = os.path.join(WEIGHTS_DIR, 'prednet_kitti_model-extrapfinetuned_a3_t5.json')
 
 save_model = True
-extrap_weights_file = os.path.join(WEIGHTS_DIR, 'prednet_jamc_extrapfinetuned_a3_t5.hdf5')  # where new weights will be saved
-extrap_json_file = os.path.join(WEIGHTS_DIR, 'prednet_jamc_extrapfinetuned_a3_t5.json')
+extrap_weights_file = os.path.join(WEIGHTS_DIR, 'prednet_jamc_weights-extrapfinetuned_a3_t5_fm1.hdf5')  # where new weights will be saved
+extrap_json_file = os.path.join(WEIGHTS_DIR, 'prednet_jamc_model-extrapfinetuned_a3_t5_fm1.json')
 
 # Data files
-train_file = os.path.join(DATA_DIR, 'X_train.hkl')
-train_sources = os.path.join(DATA_DIR, 'sources_train.hkl')
-val_file = os.path.join(DATA_DIR, 'X_test.hkl')
-val_sources = os.path.join(DATA_DIR, 'sources_test.hkl')
+train_file = os.path.join(DATA_DIR, 'X_train_2008-2010.hkl')
+train_sources = os.path.join(DATA_DIR, 'sources_train_2008-2010.hkl')
+val_file = os.path.join(DATA_DIR, 'X_test_2008-2010.hkl')
+val_sources = os.path.join(DATA_DIR, 'sources_test_2008-2010.hkl')
 # Training parameters
 nb_epoch = 150
-batch_size = 4
-samples_per_epoch = 1700 #Numero de imagens a cada n batch_size (samples_per_epoch/batch_size = iterations)
-N_seq_val = 100  # number of sequences to use for validation
+batch_size = 3
+samples_per_epoch = 375 #Numero de imagens a cada n batch_size (samples_per_epoch/batch_size = iterations)
+N_seq_val = 100   # number of sequences to use for validation
 
 # Load t+1 model
 f = open(orig_json_file, 'r')
@@ -66,7 +66,7 @@ model.compile(loss=extrap_loss, optimizer='adam')
 train_generator = SequenceGenerator(train_file, train_sources, nt, batch_size=batch_size, shuffle=True, output_mode='prediction')
 val_generator = SequenceGenerator(val_file, val_sources, nt, batch_size=batch_size, N_seq=N_seq_val, output_mode='prediction')
 
-lr_schedule = lambda epoch: 0.001 if epoch < 80 else 0.0001    # start with lr of 0.001 and then drop to 0.0001 after 75 epochs
+lr_schedule = lambda epoch: 0.001 if epoch < 50 else 0.0001    # start with lr of 0.001 and then drop to 0.0001 after 75 epochs
 callbacks = [LearningRateScheduler(lr_schedule)]
 if save_model:
     if not os.path.exists(WEIGHTS_DIR): os.mkdir(WEIGHTS_DIR)

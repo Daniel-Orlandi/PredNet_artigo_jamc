@@ -14,17 +14,20 @@ import os.path
 
 
 
-DATA_DIR='/home/daniel/PredNet_artigo_jamc/kitti_results/prediction_plots_artigo_jamc_finetunned_2/'
+DATA_DIR='/home/daniel/PredNet_artigo_jamc/kitti_results/prediction_plots_artigo_jamc_finetunned_3/'
+"""
 resp = raw_input('deseja mudar a pasta de salvamento ?'+' Padrão: '+ DATA_DIR+': ')
 if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 'y':
     save_dir_name = raw_input('Pasta onde deseja salvar')
     SAVE_DIR = os.path.join(DATA_DIR,str(save_dir_name))
 
 else:
-    SAVE_DIR = DATA_DIR
+"""
+SAVE_DIR = DATA_DIR
 
 print'os arquivos serão salvos em:'+ SAVE_DIR
 
+"""
 resp = raw_input('deseja mudar o nome do arquivo ? Padrão, "tw": ')
 
 if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 'y':
@@ -32,7 +35,8 @@ if str(resp) == 'yes' or str(resp) == 'sim' or str(resp) == 's' or str(resp) == 
     name = str(arquivo_name)
 
 else:
-    name = '_jamc_ft_2_'
+"""
+name = '_jamc_ft_'
 
 print'os arquivos terão em parte do nome:'+ name
 
